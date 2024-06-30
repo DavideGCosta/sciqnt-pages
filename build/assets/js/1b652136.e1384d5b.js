@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunksciqnt_pages=self.webpackChunksciqnt_pages||[]).push([[2689],{5697:e=>{e.exports=JSON.parse('{"metadata":{"permalink":"/sciqnt-pages/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
