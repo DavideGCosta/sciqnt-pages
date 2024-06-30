@@ -1,0 +1,270 @@
+{
+  "/sciqnt-pages/__docusaurus/debug-7b6": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-docusaurus-debugb-38-ff6"
+    }
+  },
+  "/sciqnt-pages/__docusaurus/debug/config-a2c": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-docusaurus-debugb-38-ff6"
+    }
+  },
+  "/sciqnt-pages/__docusaurus/debug/content-083": {
+    "__comp": "__comp---theme-debug-contentba-8-ce7",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-docusaurus-debugb-38-ff6"
+    },
+    "__props": "__props---sciqnt-pages-docusaurus-debug-contente-95-eb4"
+  },
+  "/sciqnt-pages/__docusaurus/debug/globalData-000": {
+    "__comp": "__comp---theme-debug-global-dataede-0fa",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-docusaurus-debugb-38-ff6"
+    }
+  },
+  "/sciqnt-pages/__docusaurus/debug/metadata-1ac": {
+    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-docusaurus-debugb-38-ff6"
+    }
+  },
+  "/sciqnt-pages/__docusaurus/debug/registry-fd2": {
+    "__comp": "__comp---theme-debug-registry-679-501",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-docusaurus-debugb-38-ff6"
+    }
+  },
+  "/sciqnt-pages/__docusaurus/debug/routes-3cf": {
+    "__comp": "__comp---theme-debug-routes-946-699",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-docusaurus-debugb-38-ff6"
+    }
+  },
+  "/sciqnt-pages/blog-782": {
+    "__comp": "__comp---theme-blog-list-pagea-6-a-7ba",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-blog-369-a50"
+    },
+    "sidebar": "sidebar---sciqnt-pages-blog-814-821",
+    "items": [
+      {
+        "content": "content---sciqnt-pages-blog-766-8b2"
+      },
+      {
+        "content": "content---sciqnt-pages-blogf-4-f-2dd"
+      },
+      {
+        "content": "content---sciqnt-pages-blog-871-6cb"
+      },
+      {
+        "content": "content---sciqnt-pages-blog-925-e15"
+      }
+    ],
+    "__props": "__props---sciqnt-pages-blog-1-b-6-317"
+  },
+  "/sciqnt-pages/blog/archive-512": {
+    "__comp": "__comp---theme-blog-archive-page-9-e-4-1d8",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-blog-369-a50"
+    },
+    "__props": "__props---sciqnt-pages-blog-archive-590-8dd"
+  },
+  "/sciqnt-pages/blog/first-blog-post-904": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---sciqnt-pages-blog-first-blog-postace-203"
+      },
+      "plugin": "plugin---sciqnt-pages-blog-369-a50"
+    },
+    "sidebar": "sidebar---sciqnt-pages-blog-814-821",
+    "content": "content---sciqnt-pages-blog-first-blog-poste-27-e00"
+  },
+  "/sciqnt-pages/blog/long-blog-post-09b": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---sciqnt-pages-blog-first-blog-postace-203"
+      },
+      "plugin": "plugin---sciqnt-pages-blog-369-a50"
+    },
+    "sidebar": "sidebar---sciqnt-pages-blog-814-821",
+    "content": "content---sciqnt-pages-blog-long-blog-post-736-8d0"
+  },
+  "/sciqnt-pages/blog/mdx-blog-post-1a4": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---sciqnt-pages-blog-first-blog-postace-203"
+      },
+      "plugin": "plugin---sciqnt-pages-blog-369-a50"
+    },
+    "sidebar": "sidebar---sciqnt-pages-blog-814-821",
+    "content": "content---sciqnt-pages-blog-mdx-blog-post-593-4d9"
+  },
+  "/sciqnt-pages/blog/tags-033": {
+    "__comp": "__comp---theme-blog-tags-list-page-01-a-d0b",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-blog-369-a50"
+    },
+    "sidebar": "sidebar---sciqnt-pages-blog-814-821",
+    "__props": "__props---sciqnt-pages-blog-tags-688-38a"
+  },
+  "/sciqnt-pages/blog/tags/docusaurus-0f5": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-blog-369-a50"
+    },
+    "sidebar": "sidebar---sciqnt-pages-blog-814-821",
+    "items": [
+      {
+        "content": "content---sciqnt-pages-blog-766-8b2"
+      },
+      {
+        "content": "content---sciqnt-pages-blogf-4-f-2dd"
+      },
+      {
+        "content": "content---sciqnt-pages-blog-871-6cb"
+      },
+      {
+        "content": "content---sciqnt-pages-blog-925-e15"
+      }
+    ],
+    "__props": "__props---sciqnt-pages-blog-tags-docusaurus-7-ba-981"
+  },
+  "/sciqnt-pages/blog/tags/facebook-537": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-blog-369-a50"
+    },
+    "sidebar": "sidebar---sciqnt-pages-blog-814-821",
+    "items": [
+      {
+        "content": "content---sciqnt-pages-blog-766-8b2"
+      }
+    ],
+    "__props": "__props---sciqnt-pages-blog-tags-facebookc-60-f1f"
+  },
+  "/sciqnt-pages/blog/tags/hello-d52": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-blog-369-a50"
+    },
+    "sidebar": "sidebar---sciqnt-pages-blog-814-821",
+    "items": [
+      {
+        "content": "content---sciqnt-pages-blog-766-8b2"
+      },
+      {
+        "content": "content---sciqnt-pages-blog-871-6cb"
+      }
+    ],
+    "__props": "__props---sciqnt-pages-blog-tags-hello-30-f-02d"
+  },
+  "/sciqnt-pages/blog/tags/hola-98e": {
+    "__comp": "__comp---theme-blog-tags-posts-page-687-b6c",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-blog-369-a50"
+    },
+    "sidebar": "sidebar---sciqnt-pages-blog-814-821",
+    "items": [
+      {
+        "content": "content---sciqnt-pages-blog-925-e15"
+      }
+    ],
+    "__props": "__props---sciqnt-pages-blog-tags-hola-02-b-fee"
+  },
+  "/sciqnt-pages/blog/welcome-eb2": {
+    "__comp": "__comp---theme-blog-post-pageccc-cab",
+    "__context": {
+      "data": {
+        "blogMetadata": "blogMetadata---sciqnt-pages-blog-first-blog-postace-203"
+      },
+      "plugin": "plugin---sciqnt-pages-blog-369-a50"
+    },
+    "sidebar": "sidebar---sciqnt-pages-blog-814-821",
+    "content": "content---sciqnt-pages-blog-welcomed-9-f-56c"
+  },
+  "/sciqnt-pages/docs-02c": {
+    "__comp": "__comp---theme-docs-root-5-e-9-0b6",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-docsaba-edf"
+    }
+  },
+  "/sciqnt-pages/docs-768": {
+    "__comp": "__comp---theme-doc-version-roota-7-b-5de",
+    "__props": "__props---sciqnt-pages-docs-612-f00"
+  },
+  "/sciqnt-pages/docs-e3f": {
+    "__comp": "__comp---theme-doc-roota-94-67a"
+  },
+  "/sciqnt-pages/docs/api-reference/create-a-blog-post-358": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---sciqnt-pages-docs-api-reference-create-a-blog-post-660-924"
+  },
+  "/sciqnt-pages/docs/api-reference/create-a-document-8ab": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---sciqnt-pages-docs-api-reference-create-a-documented-6-d89"
+  },
+  "/sciqnt-pages/docs/api-reference/create-a-page-6bc": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---sciqnt-pages-docs-api-reference-create-a-pagefe-3-921"
+  },
+  "/sciqnt-pages/docs/api-reference/deploy-your-site-a0d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---sciqnt-pages-docs-api-reference-deploy-your-site-0-c-5-ae6"
+  },
+  "/sciqnt-pages/docs/category/api-reference-d81": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "__props": "__props---sciqnt-pages-docs-category-api-reference-608-946"
+  },
+  "/sciqnt-pages/docs/category/financial-news-strategy-df0": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "__props": "__props---sciqnt-pages-docs-category-financial-news-strategy-886-23e"
+  },
+  "/sciqnt-pages/docs/category/strategies-963": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "__props": "__props---sciqnt-pages-docs-category-strategies-76-e-9ff"
+  },
+  "/sciqnt-pages/docs/category/strategy-2-b59": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "__props": "__props---sciqnt-pages-docs-category-strategy-21-be-730"
+  },
+  "/sciqnt-pages/docs/intro-c13": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---sciqnt-pages-docs-intro-0-e-3-d3c"
+  },
+  "/sciqnt-pages/docs/strategies/financial-news/clustering-0ee": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---sciqnt-pages-docs-strategies-financial-news-clusteringec-8-6a7"
+  },
+  "/sciqnt-pages/docs/strategies/financial-news/sentence-embeddings-303": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---sciqnt-pages-docs-strategies-financial-news-sentence-embeddings-656-2d1"
+  },
+  "/sciqnt-pages/docs/strategies/financial-news/sourcing-news-58b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---sciqnt-pages-docs-strategies-financial-news-sourcing-news-615-709"
+  },
+  "/sciqnt-pages/docs/strategies/strategy2/Clustering-03e": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---sciqnt-pages-docs-strategies-strategy-2-clustering-73-c-2f0"
+  },
+  "/sciqnt-pages/docs/strategies/strategy2/Sentence Embeddings-4db": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---sciqnt-pages-docs-strategies-strategy-2-sentence-embeddings-6-ae-51d"
+  },
+  "/sciqnt-pages/docs/strategies/strategy2/Sourcing News-ab6": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---sciqnt-pages-docs-strategies-strategy-2-sourcing-newsf-92-b47"
+  },
+  "/sciqnt-pages/-232": {
+    "__comp": "__comp---site-src-pages-index-tsx-1-df-d3e",
+    "__context": {
+      "plugin": "plugin---sciqnt-pages-a-74-9a8"
+    },
+    "config": "config---sciqnt-pages-5-e-9-f1c"
+  }
+}

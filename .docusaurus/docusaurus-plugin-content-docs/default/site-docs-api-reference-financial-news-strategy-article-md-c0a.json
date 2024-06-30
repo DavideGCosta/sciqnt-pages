@@ -1,0 +1,24 @@
+{
+  "id": "api-reference/Financial News Strategy/article",
+  "title": "Financial News Strategy | 2. Sentence Embeddings",
+  "description": "SciQnt.com makes things easier. Try it out.",
+  "source": "@site/docs/api-reference/Financial News Strategy/article.md",
+  "sourceDirName": "api-reference/Financial News Strategy",
+  "slug": "/api-reference/Financial News Strategy/article",
+  "permalink": "/sciqnt-pages/docs/api-reference/Financial News Strategy/article",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/api-reference/Financial News Strategy/article.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Financial News Strategy | 2. Sentence Embeddings",
+    "permalink": "/sciqnt-pages/docs/api-reference/Financial News Strategy/Sentence Embeddings/article"
+  },
+  "next": {
+    "title": "Create a Document",
+    "permalink": "/sciqnt-pages/docs/api-reference/create-a-document"
+  }
+}

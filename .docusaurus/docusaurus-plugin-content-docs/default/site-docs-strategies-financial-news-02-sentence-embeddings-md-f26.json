@@ -1,0 +1,25 @@
+{
+  "id": "strategies/financial-news/sentence-embeddings",
+  "title": "2. Sentence Embeddings",
+  "description": "SciQnt.com makes things easier. Try it out.",
+  "source": "@site/docs/strategies/financial-news/02-sentence-embeddings.md",
+  "sourceDirName": "strategies/financial-news",
+  "slug": "/strategies/financial-news/sentence-embeddings",
+  "permalink": "/sciqnt-pages/docs/strategies/financial-news/sentence-embeddings",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/strategies/financial-news/02-sentence-embeddings.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "1. Sourcing News",
+    "permalink": "/sciqnt-pages/docs/strategies/financial-news/sourcing-news"
+  },
+  "next": {
+    "title": "3. Clustering",
+    "permalink": "/sciqnt-pages/docs/strategies/financial-news/clustering"
+  }
+}

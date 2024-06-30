@@ -1,0 +1,103 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/sciqnt-pages/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/sciqnt-pages/docs",
+          "mainDocId": "intro",
+          "docs": [
+            {
+              "id": "api-reference/create-a-blog-post",
+              "path": "/sciqnt-pages/docs/api-reference/create-a-blog-post",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "api-reference/create-a-document",
+              "path": "/sciqnt-pages/docs/api-reference/create-a-document",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "api-reference/create-a-page",
+              "path": "/sciqnt-pages/docs/api-reference/create-a-page",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "api-reference/deploy-your-site",
+              "path": "/sciqnt-pages/docs/api-reference/deploy-your-site",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "intro",
+              "path": "/sciqnt-pages/docs/intro",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "strategies/financial-news/clustering",
+              "path": "/sciqnt-pages/docs/strategies/financial-news/clustering",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "strategies/financial-news/sentence-embeddings",
+              "path": "/sciqnt-pages/docs/strategies/financial-news/sentence-embeddings",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "strategies/financial-news/sourcing-news",
+              "path": "/sciqnt-pages/docs/strategies/financial-news/sourcing-news",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "strategies/strategy2/Clustering",
+              "path": "/sciqnt-pages/docs/strategies/strategy2/Clustering",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "strategies/strategy2/Sentence Embeddings",
+              "path": "/sciqnt-pages/docs/strategies/strategy2/Sentence Embeddings",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "strategies/strategy2/Sourcing News",
+              "path": "/sciqnt-pages/docs/strategies/strategy2/Sourcing News",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/api-reference",
+              "path": "/sciqnt-pages/docs/category/api-reference",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/strategies",
+              "path": "/sciqnt-pages/docs/category/strategies",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/financial-news-strategy",
+              "path": "/sciqnt-pages/docs/category/financial-news-strategy",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/strategy-2",
+              "path": "/sciqnt-pages/docs/category/strategy-2",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/sciqnt-pages/docs/intro",
+                "label": "intro"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}
