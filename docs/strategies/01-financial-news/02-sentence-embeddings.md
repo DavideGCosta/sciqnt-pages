@@ -297,9 +297,11 @@ fig.update_layout(
 fig.show()
 ```
 <iframe
-    src='http://localhost:3000/sciqnt-pages/notebooks/docs/strategies/01-financial-news/3d-visualization-of-financial-news-titles-with-manual-embeddings.html'
+    src='https://davidegcosta.github.io/sciqnt-pages/notebooks/docs/strategies/01-financial-news/3d-visualization-of-financial-news-titles-with-manual-embeddings.html'
     style={{ width: '100%', height: '700px', border: 'none' }}
     title="IFrame Content"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
 ></iframe>
 
 #### A few insights based on the results:
