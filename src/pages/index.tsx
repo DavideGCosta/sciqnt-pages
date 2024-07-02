@@ -18,9 +18,9 @@ function HomepageHeader() {
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
+            className="button button--secondary "
+            to="/docs/category/documentation">
+            See Documentation
           </Link>
         </div>
       </div>
@@ -38,6 +38,5 @@ export default function Home(): JSX.Element {
       <main>
         <HomepageFeatures />
       </main>
-    </Layout>
-  );
+    </Layout>  );
 }
