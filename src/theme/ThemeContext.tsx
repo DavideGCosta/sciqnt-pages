@@ -4,7 +4,7 @@ import { useColorMode } from '@docusaurus/theme-common';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
 interface ThemeContextType {
-  theme: 'light' | 'dark';
+  theme: 'dark' | 'light';
   toggleTheme: () => void;
 }
 
@@ -16,11 +16,11 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const { colorMode, setColorMode } = useColorMode();
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
     if (ExecutionEnvironment.canUseDOM) {
-      const storedTheme = localStorage.getItem('theme') as 'light' | 'dark';
+      const storedTheme = localStorage.getItem('theme') as 'dark' | 'light';
       if (storedTheme) {
         setTheme(storedTheme);
         setColorMode(storedTheme);
@@ -33,23 +33,35 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   useEffect(() => {
     if (ExecutionEnvironment.canUseDOM) {
       const handleThemeChange = () => {
-        const newTheme = localStorage.getItem('theme') as 'light' | 'dark';
+        const newTheme = localStorage.getItem('theme') as 'dark' | 'light';
         if (newTheme) {
           setColorMode(newTheme);
           setTheme(newTheme);
         }
       };
 
+      const handleMessage = (event: MessageEvent) => {
+        console.log("Message received in iframe:", event.data); // Debugging line
+        if (event.data.type === 'CHANGE_THEME') {
+          const newTheme = event.data.theme as 'dark' | 'light';
+          setColorMode(newTheme);
+          setTheme(newTheme);
+          localStorage.setItem('theme', newTheme);
+        }
+      };
+
       window.addEventListener('themeChanged', handleThemeChange);
+      window.addEventListener('message', handleMessage);
 
       return () => {
         window.removeEventListener('themeChanged', handleThemeChange);
+        window.removeEventListener('message', handleMessage);
       };
     }
   }, [setColorMode]);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    const newTheme = theme === 'light' ? 'dark' : 'light';
     setColorMode(newTheme);
     setTheme(newTheme);
     if (ExecutionEnvironment.canUseDOM) {
