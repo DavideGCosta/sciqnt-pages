@@ -1,454 +1,414 @@
-# 1. Sourcing News
+# Sourcing Financial News
 
-[SciQnt.com](https://www.sciqnt.com) makes things easier. Try it out.
+The world of finance is inextricably linked with the world of news, each influencing the other in a never-ending dance. Many ‘financial market engineers’ strive to decode this relationship, but the first step is collecting the right financial news data. How do you do that? Where do you start? Here, we’ve laid out a quick, cost-free setup to get you started on gathering and analyzing financial news. Perfect for those looking to dive into the intricate web of market trends and news without spending a dime.
 
-<div class="alert alert-block alert-info">
-<b>Disclaimer:</b> Our strategies are tailored to specific input data and desired outcomes, which means the results presented here may not fully apply to your unique situation. The primary goal is to expose you to various approaches and key considerations. Additionally, please understand that the stock market is highly complex and constantly evolving; predicting returns is challenging, and no strategy is foolproof. Moreover, we want to be transparent about our use of state-of-the-art Large Language Models (LLMs) in our research. While these tools are invaluable, particularly in the writing process, they cannot independently conduct the research. They are used to augment our efforts, not replace them.
-</div>
+[![Open in GitHub](https://img.shields.io/badge/%7C%20-Open%20in%20GitHub-blue?logo=github)](https://github.com/DavideGCosta/sciqnt-pages/tree/main/static/notebooks/docs/strategies/01-financial-news/01-sourcing-news.ipynb)
+[![Open in Colab](https://img.shields.io/badge/%7C-Open%20in%20Colab-orange?style=flat&logo=googlecolab)](https://colab.research.google.com/github/DavideGCosta/sciqnt-pages/blob/tree/main/static/notebooks/docs/strategies/01-financial-news/01-sourcing-news.ipynb)
+[![Open in Codespaces](https://img.shields.io/badge/%7C-Open%20in%20Codespaces-darkblue?style=flat&logo=git-for-windows&logoColor=white)](https://github1s.com/DavideGCosta/sciqnt-pages/tree/main/static/notebooks/docs/strategies/01-financial-news/01-sourcing-news.ipynb)
 
----
+## Background
 
-### Background
 In the fast-paced world of financial news and behavioral finance, each piece of information contains both fundamental and non-fundamental elements. The challenge lies in sifting through the overwhelming noise and massive influx of data that surpass human processing capabilities. But what if we could identify patterns within this data? Better yet, what if we could use computers to do it for us? Today, we are fortunate to have access to open-source models that make text comprehensible to machines. This process, known as ‘Sentence Embeddings,’ has revolutionized AI and deep learning. By converting textual data into meaningful numerical representations, sentence embeddings empower us to discern market sentiment, spot emerging trends, and predict financial movements with unprecedented efficiency and accuracy.
 
-### Introduction
-Once we have collected financial news, the next step is to automate its interpretation. This means transforming the raw data for downstream applications like detecting trending topics through clustering or performing sentiment analysis. At the heart of this transformation is 'Sentence Embeddings,' which convert complex textual data into meaningful numerical vectors. This article delves into how to leverage pre-trained models to transform your data, enabling you to extract deeper insights and make more informed decisions in the dynamic world of finance.
+## Introduction
+The first step in building a strategy that leans on financial news to analyze patterns and market sentiment is sourcing and ingesting those news items. Just like any data-driven analysis, the quality of your input data determines the quality of your output. Remember, garbage in, garbage out; no state-of-the-art model can compensate for poor data.
+
+So, what makes a good dataset of financial news?
+
+- **Comprehensive Coverage:** It should pull from a wide range of sources, including major financial news outlets and industry-specific publications. This ensures a broad perspective on market events and sentiments.
+
+- **Timeliness:** Financial markets move quickly, so the dataset should be updated frequently to capture the latest news and developments. Real-time or near real-time data is ideal.
+
+- **Relevance:** The news articles should be pertinent to the financial markets, covering topics like stock market updates, economic indicators, corporate earnings, mergers and acquisitions, regulatory changes, and geopolitical events.
+
+- **Diversity of Perspectives:** Including news from various geographical regions and economic sectors can provide a more holistic view of the market. This helps in understanding global market dynamics and sector-specific trends.
+
+- **Quality and Credibility:** The sources should be reputable and known for their accuracy and reliability. This reduces the risk of misinformation affecting analysis and investment decisions.
+
+- **Metadata:** Each news item should come with useful metadata, such as publication date, source, author, geographical region, and topic tags. This aids in filtering, sorting, and analyzing the data more effectively.
+
+- **Sentiment Analysis Ready:** The dataset should be in a format conducive to natural language processing and sentiment analysis. Clean, well-structured text data with minimal noise is ideal.
+
+- **Historical Data:** Access to historical news data allows for trend analysis over time, which can be crucial for identifying long-term patterns and correlations.
+
+By ensuring these characteristics, a financial news dataset becomes a robust tool for analyzing market conditions and identifying investment opportunities.
+
+## Ingesting Financial News
+
+### Financial News Sources 
+
+For instance, a solid and relevant pool of Financial News Providers might look something like this. We’ve got the usual suspects with broad, comprehensive coverage, but we also delve into niche territory with specialized providers for Technology, Commodity and Energy Markets, and Healthcare. This mix ensures we’re not missing out on the big picture while keeping an eye on the nitty-gritty details in specific sectors.
 
 
 ```python
-#TESTTtÎÍafszft
+news_sources = {
+    "General": {
+        "Reuters": "reuters.com",
+        "Financial Times": "ft.com",
+        "CNBC": "cnbc.com",
+        "MarketWatch": "marketwatch.com",
+        "The Economist": "economist.com",
+        "Yahoo Finance": "finance.yahoo.com",
+        "Benzinga": "benzinga.com",
+        "Investing.com": "investing.com",
+    },
+    "Technology Trends": {
+        "Wired": "wired.com",
+        "Ars Technica": "arstechnica.com",
+    },
+    "Commodity and Energy Markets": {
+        "OilPrice": "oilprice.com",
+        "Rigzone": "rigzone.com",
+    },
+    "Healthcare Developments": {
+        "Modern Healthcare": "modernhealthcare.com",
+        "BioSpace": "biospace.com",
+    }
+}
 ```
+
+### Financial News Semantic Search
+
+Alternatively, or as a complement to the previous sources, you can dive into the world of semantic search by keywords in financial news. This method casts a wide net, scooping up news from virtually any source, offering an impressively comprehensive search. However, there’s a catch—it also dredges up a fair share of irrelevant news and content from potentially dubious providers. So, before you dive into analysis, you’ll need a solid spam filter to sift out the noise and ensure you’re not swimming in a sea of non-credible stuff.
+
+
+```python
+news_topics = {
+    "Market Dynamics": {
+        "Title": "Market Dynamics",
+        "Description": "Exploring the various factors that influence financial markets, including interest rates, inflation, employment, economic growth, consumer spending, and the housing market.",
+        "Subtopics": {
+            "Interest Rates": {
+                "Title": "Interest Rates & Monetary Policy",
+                "Description": "An analysis of how interest rates and central bank policies influence financial markets.",
+                "Keywords": "\"Interest Rate\" OR \"Federal Reserve\" OR \"FED\" OR \"Central Bank\""
+            } # add more ...
+        }
+    },
+    "Geopolitical Events": {
+        "Title": "Geopolitical Events",
+        "Description": "Insights into key global political events, including elections, trade dynamics, international relations, military conflicts, EU matters, and global summits.",
+        "Subtopics": {
+            "Elections": {
+                "Title": "Global Elections",
+                "Description": "Coverage of major elections and political campaigns worldwide.",
+                "Keywords": "\"Election\" OR \"Political Campaign\" OR \"Political Development\""
+            } # add more ...
+        }
+    },
+    "Regulatory Changes": {
+        "Title": "Regulatory Changes",
+        "Description": "Tracking significant shifts in tax, monetary and fiscal policies, antitrust, environmental, and financial regulations.",
+        "Subtopics": {
+            "Tax Policies": {
+                "Title": "Tax Policy Changes",
+                "Description": "Updates on tax reforms, legislation, and changes in tax policies.",
+                "Keywords": "\"Tax Reform\" OR \"Tax Legislation\" OR \"Tax Policy\" OR \"Tax Cut\" OR \"Tax Hike\""
+            }# add more ...
+        }
+    },
+    "Technology Trends": {
+        "Title": "Technology Trends",
+        "Description": "Insights into the latest advancements in AI, blockchain, cybersecurity, telecommunication, automotive, and renewable energy technologies.",
+        "Subtopics": {
+            "AI and Machine Learning": {
+                "Title": "AI and Machine Learning Innovations",
+                "Description": "Exploring advancements in artificial intelligence and machine learning technologies.",
+                "Keywords": "\"Artificial Intelligence\" OR \"Machine Learning\" OR \"AI ML\""
+            } # add more ...
+        }
+    },
+    "Corporate Actions": {
+        "Title": "Corporate Actions",
+        "Description": "A focus on financial reports, mergers, public offerings, stock activities, and dividend policies of corporations.",
+        "Subtopics": {
+            "Financial Reports": {
+                "Title": "Corporate Financial Reporting",
+                "Description": "Analysis of earnings reports, financial statements, and annual and quarterly reports.",
+                "Keywords": "\"Earnings\" OR \"Earnings Report\" OR \"Financial Statement\" OR \"Quarterly Report\" OR \"Annual Report\" OR \"10-K\" OR \"10-Q\""
+            }# add more ...
+        }
+    },
+    "Commodity and Energy Markets": {
+        "Title": "Commodity and Energy Markets",
+        "Description": "In-depth analysis of commodity markets including oil, precious metals, agricultural commodities, and renewable energy sources.",
+        "Subtopics": {
+            "Oil and Petroleum": {
+                "Title": "Oil and Petroleum Dynamics",
+                "Description": "Exploration of the oil and petroleum markets, focusing on trends and economic impacts.",
+                "Keywords": "\"Oil\" OR \"Crude\" OR \"Petroleum\" OR \"Energy\""
+            }# add more ...
+        }
+    },
+    "Healthcare Developments": {
+        "Title": "Healthcare Developments",
+        "Description": "Exploration of key factors in healthcare including pandemics, medical innovations, health policies, and pharmaceutical advances.",
+        "Subtopics": {
+            "Pandemics": {
+                "Title": "Pandemic Outbreaks",
+                "Description": "Focus on the impact and management of global health crises and pandemics.",
+                "Keywords": "\"Pandemic Outbreak\" OR \"Global Health Crisis\""
+            } # add more ...
+        }
+    },
+    "Environmental and Social Issues": {
+        "Title": "Environmental and Social Issues",
+        "Description": "Focus on critical environmental and social challenges like climate change, sustainable investing, corporate governance, and social movements.",
+        "Subtopics": {
+            "Climate Change": {
+                "Title": "Climate Change Impacts",
+                "Description": "Analysis of climate change effects and the response to global warming.",
+                "Keywords": "\"Climate Change\" OR \"Global Warming\" OR \"Carbon Emission\" OR \"Carbon Tax\""
+            }# add more ...
+        }
+    },
+    "Market Sentiment Indicators": {
+        "Title": "Market Sentiment Indicators",
+        "Description": "A comprehensive look at the indicators that reflect market sentiment, including volatility, options market, short selling, and market surveys.",
+        "Subtopics": {
+            "Market Volatility": {
+                "Title": "Market Volatility Analysis",
+                "Description": "Analysis of market volatility and its implications for investors and traders.",
+                "Keywords": "\"Volatility Index\" OR \"VIX\" OR \"Market Volatility\""
+            }# add more ...
+        }
+    },
+    "Economic Indicators": {
+        "Title": "Economic Indicators",
+        "Description": "Analysis of key economic indicators including PMI, consumer prices, housing market, and industrial production.",
+        "Subtopics": {
+            "Purchasing Managers Index": {
+                "Title": "Purchasing Managers Index Insights",
+                "Description": "In-depth analysis of the PMI and its implications for the economy.",
+                "Keywords": "\"Purchasing Managers' Index\" OR \"PMI\""
+            },
+            "Consumer Prices": {
+                "Title": "Consumer Price Trends",
+                "Description": "Examination of consumer price indices and inflation.",
+                "Keywords": "\"Consumer Price Index\" OR \"Inflation\" OR \"CPI\""
+            }# add more ...
+        }
+    }
+}
+
+```
+
+### Collecting the Data
+
+Now that we’ve identified our sources and keywords, it’s time to pull the news data. There are several methods to do this, ranging from free to premium, but let’s focus on the budget-friendly options:
+
+- **Financial News APIs:** Free tiers of services like Alpha Vantage, NewsAPI, and Finnhub provide real-time and historical financial news data. This method offers the simplest access but can be limited in scope and data availability.
+
+- **Web Scraping:** Build your own web scrapers using tools like Beautiful Soup or Scrapy in Python to extract data from financial news websites. However, this requires adherence to each site’s scraping policies, and handling captchas and logins can make it quite challenging.
+
+- **RSS Feeds:** Some sources offer free RSS feeds you can subscribe to for pulling information. The downside is you’ll need to handle each source individually, and not all sources provide RSS feeds.
+
+- **News Aggregators:** Platforms like Google News and Feedly consolidate news from multiple sources in one place, standardizing the information. While they typically offer only news titles, summaries, and metadata, this is often sufficient for initial analysis.
+
+Google News also provides an RSS feed, simplifying the process of pulling financial news. For this reason, we’ll use it as our example.
+
+By running the snippet below you can leverage the Google News Aggregator to pull the financial news for your `news_sources` and `news_topics` defined above. 
+
+The snippet can be split as follows:
+- `make_DTawareUCT`: Imagine you’ve got a bunch of datetime strings lounging around with no clue what timezone they belong to. That’s where this function steps in, takes these naive datetime strings, and whisks them into the UTC timezone.
+
+- `clean_description`: You know how news descriptions come plastered with HTML tags and clutter? Using BeautifulSoup, it scrapes off all those pesky tags and unwanted spaces, leaving behind just the clean, pure text. It’s like giving your news description a nice shower, ready for the spotlight in your analysis.
+
+- `get_googleNewsRss`: Now, here’s the main event. This function crafts a search URL with all your secret ingredients—topics, subtopics, keywords, and timing. It then sends this URL out into the web and waits for the XML data to come back. Once it’s got the goods, it parses through the XML, picking out relevant bits like titles, links, descriptions, and sources. It even checks the publication date’s timezone and cleans up the description’s HTML mess. Each piece of news gets its own little data packet, and before you know it, you’ve got a DataFrame full of fresh, neatly organized news articles.
 
 
 ```python
 %%capture
 # Install the necessary packages
-!pip install plotly pandas numpy matplotlib seaborn sentence-transformers sklearn
+!pip install requests pandas beautifulsoup4 lxml pytz tabulate
 
-import warnings
+import warnings, os
 # Suppress all warnings - remove it when testing the notebook to see the warnings
 warnings.simplefilter("ignore")
-
-import os
-# Get theme from environment variable or default to 'plotly'
-theme = os.getenv('PLOTLY_THEME', 'plotly')
 ```
 
 
 ```python
-# Plotting Script
-import plotly.graph_objs as go
-import plotly.express as px
+# Importing the necessary dependencies
+import requests
+import xml.etree.ElementTree as ET
 import pandas as pd
-from sklearn.decomposition import PCA
+from bs4 import BeautifulSoup
+from datetime import datetime
+import pytz
+import random
 
-# Example embeddings and titles
-embeddings = [
-    [0.8, -0.6, 0.3],
-    [0.7, -0.5, 0.4],
-    [0.8, -0.5, 0.3],
-    [0.1, 0.9, -0.2],
-    [-0.3, 0.4, 0.9],
-    [0.0, 0.8, -0.3]
-]
+# Convert naive datetimes to aware datetimes in UTC
+def make_DTawareUCT(naive_datetime_str, dtformat):
+    naive_datetime = datetime.strptime(naive_datetime_str, dtformat)
+    aware_datetime = pytz.utc.localize(naive_datetime)
+    return aware_datetime
 
-titles = [
-    "The stock market is experiencing a significant downturn.",
-    "The economy is showing signs of recovery.",
-    "There is a major decline in the stock market today.",
-    "The weather is sunny and pleasant.",
-    "Apple releases its new iPhone model.",
-    "It's raining heavily in the city."
-]
+# Clean HTML content in news descriptions 
+def clean_description(html_description):
+    if not html_description:
+        return ""
+    soup = BeautifulSoup(html_description, 'html.parser')
+    # Find all text in the description and concatenate it
+    return ' '.join(soup.stripped_strings)
 
-# Convert vectors to a DataFrame
-data = {
-    'Title': titles,
-    'X': [vec[0] for vec in embeddings],
-    'Y': [vec[1] for vec in embeddings],
-    'Z': [vec[2] for vec in embeddings]
-}
+# Fetch Google News RSS feeds
+def get_googleNewsRss(topic='', subtopic='', keyword=False, inUrl=False, when=False, logger=False):
+    # Construct the search query URL
+    keyword_str = f"{keyword}" if keyword is not False else ""
+    inUrl_str = f"inurl:{inUrl}" if inUrl is not False else ""
+    when_str = f"when:{when}" if when is not False else ""
+    url = f"https://news.google.com/rss/search?q={keyword_str}+{inUrl_str}+{when_str}&hl=en-US&gl=US&ceid=US:en"
+    # Make the request to Google News RSS
+    xml_data = None
+    response = requests.get(url)
+    if response.status_code == 200:
+        xml_data = response.text
+    else:
+        raise Exception(f"Failed to get RSS feed from {url}")
+    if xml_data == None:
+        return pd.DataFrame()
+    else:
+        # Parse the XML data
+        root = ET.fromstring(xml_data)
+        items_list = []
+        for item in root.findall('.//item'):
+            # Extract necessary information from each item
+            title = item.find('title').text if item.find('title') is not None else None
+            link = item.find('link').text if item.find('link') is not None else None
+            description = item.find('description').text if item.find('description') is not None else None
+            source = item.find('source').text if item.find('source') is not None else None
+            pubDate = item.find('pubDate').text if item.find('pubDate') is not None else None
+            pubDate = make_DTawareUCT(pubDate, '%a, %d %b %Y %H:%M:%S GMT')
+            # Clean the description HTML content
+            clean_desc = clean_description(description)
+            item_data = {
+                'topic': topic,
+                'subtopic': subtopic,
+                'title': title,
+                'link': link,
+                'description': clean_desc,
+                'source': source,
+                'pubDate' : pubDate,
+                'tags' : keyword_str.replace("\"", "").split(" OR ") if keyword_str !="" else [],
+                'Headline Event': ''
+            }
+            items_list.append(item_data)
+        newsDf = pd.DataFrame(items_list)
+    return newsDf
 
-df = pd.DataFrame(data)
+# Example usage: 
+when = "1d" # gets news from the past day -- see google news search syntax for more options
+list_news_bySources = []
+for topic in news_sources.keys():
+    for _, sourceUrl in news_sources[topic].items():
+        # Append news data from each source
+        list_news_bySources.append(get_googleNewsRss(topic, subtopic='', inUrl=sourceUrl, when=when))
 
-# Create a 3D scatter plot
-fig = px.scatter_3d(df, x='X', y='Y', z='Z', color='Title')
+list_news_byTopics = []
+topics = list(news_topics.keys()) 
+random.shuffle(topics)
+for topic in topics:
+    topic_data = news_topics[topic]
+    # Convert subtopics to a list and shuffle
+    subtopics = list(topic_data['Subtopics'].keys())
+    random.shuffle(subtopics)
+    for subtopic in subtopics:
+        subtopic_data = topic_data['Subtopics'][subtopic]
+        # Append news data from each randomly selected subtopic
+        list_news_byTopics.append(get_googleNewsRss(topic, subtopic, keyword=subtopic_data['Keywords'], when=when))
 
-# Update marker size and remove text labels
-fig.update_traces(marker=dict(size=5), selector=dict(mode='markers'))
+list_AllNews = list_news_byTopics + list_news_byTopics
+df_AllNews = pd.concat(list_AllNews, ignore_index=True)
+```
 
-# Set the layout of the plot
-fig.update_layout(
-    scene=dict(
-        xaxis_title='PCA Component 1',
-        yaxis_title='PCA Component 2',
-        zaxis_title='PCA Component 3'
-    ),
-    title='3D Visualization of Financial News Titles w/ Manual Embeddings',
-    legend_title='Titles',
-    margin=dict(l=0, r=0, b=0, t=40),
-    template=theme 
-)
+### Financial News Stats
 
-fig.show()
-```    
-
-
-This example illustrates how sentence embeddings map sentences to corresponding vectors in a numerical space. Although we have manually assigned these vectors for demonstration purposes, in practice, pre-trained models handle this complex task. Sentence embeddings enable us to mathematically derive relationships between sentences. Observing the chart above, we see that "The stock market is experiencing a significant downturn." is very close to "There is a major decline in the stock market today." These sentences share a similar context and sentiment, hence their proximity. In contrast, "The economy is showing signs of recovery." is somewhat further away, reflecting its different sentiment while still being related to economic context. This demonstrates how embeddings capture nuanced relationships between sentences, allowing for sophisticated text analysis.
-
-This is a quite modest explanation of sentence embeddings. In case you're unfamiliar with it and want to understand more about it take a look at the resources:
- - [Sentence Transformers Documentation - SBERT](https://sbert.net)
- - [Hugging Face Transformers Documentation](https://huggingface.co/docs/transformers/en/index)
- - [TenserFlow Tutorials](https://www.tensorflow.org/hub/tutorials)
- - [Google Universal Sentence Encoder](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46808.pdf)
- - [FastText Documentation](https://fasttext.cc/docs/en/support.html)
- - [spaCy Documentation](https://spacy.io/api/doc)
- - [The Illustrated BERT, ELMo, and co. by Jay Alammar](http://jalammar.github.io/illustrated-bert/)
- - [Universal Sentence Encoder Colab](https://colab.research.google.com/drive/132E8CG4fRT0Yudxs5eYIm9xD69o242Uw?usp=sharing%3A)
- - [Sentence Embeddings using Siamese BERT-Networks](https://arxiv.org/abs/1908.10084)
-
-
-----
-
-### Model of Choice: SBERT - [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
-**SBERT (Sentence-BERT)**, especially the **[all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)** model, stands out as the go-to option for clustering financial news titles. Its blend of efficiency, accuracy, and deep semantic understanding makes it superior to many alternatives. Here's why **SBERT [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)** often takes the lead:
-
-##### High Quality
-SBERT [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) is exceptional at grasping the nuances of sentence-level semantics. This model is highly effective in understanding and grouping similar financial news titles, where subtle contextual differences can significantly influence clustering outcomes. While USE and DistilBERT offer good semantic understanding, they don't quite match SBERT's fine-tuning for sentence similarity, particularly in the complex world of financial news.
-
-##### Efficiency
-Designed to be lightweight, SBERT [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) shines in large-scale clustering tasks without sacrificing embedding quality. It balances model size and performance perfectly, making it ideal for real-time analysis and handling large datasets. In contrast, DistilBERT, though smaller and faster than full BERT, doesn't capture sentence-level semantics as effectively as SBERT. USE is efficient but tends to be bulkier compared to the sleek SBERT [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2).
-
-##### Versatility and Ease of Use
-SBERT is easy to integrate with popular NLP libraries and comes with thorough documentation, making deployment and experimentation straightforward. While USE and DistilBERT are also user-friendly, SBERT's approach to sentence-level embeddings is more refined, making it particularly suited for tasks like clustering and semantic similarity.
-
-##### Pre-Trained on Diverse Data
-SBERT [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) is pre-trained on large, diverse datasets, ensuring it handles various types of financial news robustly. This extensive pre-training means it generalizes well across different contexts and terminologies found in financial titles. FastText and GloVe, in contrast, focus more on word-level embeddings and lack the sophisticated sentence-level training that SBERT excels at.
-
-##### Accuracy in Semantic Matching
-The [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) model is built for highly accurate semantic matching, which is crucial for clustering news titles where context and sentiment are key. USE and DistilBERT also perform well in this area, but they don't quite reach the level of fine-tuning and optimization that SBERT provides specifically for sentence-level tasks.
-
-Here are some of the alternative options summarized, if you want to explore other models and comparison in performance check out the [Massive Text Embedding Benchmark (MTEB) Leaderboard](https://medium.com/r/?url=https%3A%2F%2Fhuggingface.co%2Fspaces%2Fmteb%2Fleaderboard).
-
-
-1. **[BERT](https://huggingface.co/docs/transformers/en/model_doc/bert) (Bidirectional Encoder Representations from Transformers):**  BERT is a pre-trained language model developed by Google. It captures bidirectional context and has been widely used for various NLP tasks.
-Pros: (High accuracy, Captures bidirectional context, Versatile for various NLP tasks)
-Cons: (Computationally expensive, Slower inference time, Large memory footprint)
-Example Models: bert-base-uncased, bert-large-uncased
-
-2. **[RoBERTa](https://huggingface.co/docs/transformers/en/model_doc/roberta) (Robustly optimized BERT approach):** RoBERTa is an optimized version of BERT by Facebook AI, trained with larger mini-batches and longer sequences.
- Example Models: roberta-base, roberta-large
-
-3. **[ALBERT](https://huggingface.co/docs/transformers/en/model_doc/albert) (A Lite BERT):** ALBERT is a lighter version of BERT that reduces the number of parameters to improve training efficiency and scalability.
-Example Models: albert-base-v2, albert-large-v2
-
-4. **[SBERT](https://huggingface.co/sentence-transformers) (Sentence-BERT):** SBERT is a modification of the BERT network to derive semantically meaningful sentence embeddings that can be compared using cosine similarity.
-Example Models: [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), paraphrase-MiniLM-L12-v2
-
-5. **[USE](https://www.tensorflow.org/hub/tutorials/semantic_similarity_with_tf_hub_universal_encoder) (Universal Sentence Encoder):** USE by Google provides versatile sentence embeddings optimized for a variety of tasks and languages.
-Example Models: universal-sentence-encoder, universal-sentence-encoder-large
-
-6. **[GloVe](https://nlp.stanford.edu/projects/glove/) (Global Vectors for Word Representation):** GloVe is an unsupervised learning algorithm for obtaining vector representations for words, which can be used to create sentence embeddings by averaging word vectors. 
-Example Models: glove.6B.300d, glove.840B.300d
-
-7. **[FastText](https://fasttext.cc):**  FastText by Facebook AI is an extension of the Word2Vec model that uses subword information to create word vectors, which can be used to form sentence embeddings.
-Example Models: wiki-news-300d-1M, crawl-300d-2M
-
-8. **[T5](https://huggingface.co/docs/transformers/en/model_doc/t5) (Text-to-Text Transfer Transformer):** T5 by Google treats all NLP tasks as a text-to-text problem, which can be used to generate embeddings from sentence representations.
-Example Models: t5-small, t5-large
-
-9. **[XLNet](https://huggingface.co/docs/transformers/en/model_doc/xlnet):** XLNet is an auto-regressive pre-trained language model that combines the best of both autoregressive and autoencoding language models.
-• Example Models: xlnet-base-cased, xlnet-large-cased
-
-10. **[ERNIE](https://huggingface.co/docs/transformers/en/model_doc/ernie) (Enhanced Representation through Knowledge Integration):** ERNIE by Baidu integrates knowledge graphs into the pre-training process to enhance the understanding of language context.
-Example Models: ernie-1.0, ernie-2.0
-
-11. **[DistilBERT](https://huggingface.co/docs/transformers/en/model_doc/distilbert):** DistilBERT is a smaller, faster, and lighter version of BERT that retains 97% of BERT's language understanding.
-Example Models: distilbert-base-uncased, distilbert-base-multilingual-cased
-
----
-
-### Sentence Embeddings using SBERT
-
-The **SBERT [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)** model, hosted by **Hugging Face**, simplifies the implementation of advanced semantic analysis, making it accessible even for complex tasks (a big win for us!). To get started, you only need to install the sentence-transformers library via pip, which provides easy access to the SentenceTransformer module. This module allows you to transform sentences into rich, meaningful vector representations that capture their semantic essence. In essence, a sentence transformer converts text into numerical vectors, enabling nuanced understanding and comparison of sentences. You can learn more about sentence transformers here.
-
-Once the model is loaded, you can simply use model.encode to generate these embeddings, unlocking the potential to analyze and cluster text based on its meaning. This function turns your sentences into vectors that can be used to perform a wide range of downstream tasks, from clustering and classification to semantic search and beyond.
-
-Here's the implementation in python:
+Now that we’ve meticulously gathered our financial news articles and compiled them into the df_AllNews DataFrame, it’s time to dive into the data and extract some meaningful insights. With a rich dataset at our disposal, we can move beyond merely collecting news to analyzing it for patterns, trends, and actionable intelligence. To achieve this, we’ll utilize the show_interesting_stats function, which will provide a comprehensive overview of our dataset. This function will dissect the DataFrame, revealing the number of articles, the diversity of sources, the time span of the news, and the most frequently mentioned keywords and topics. By examining these statistics, we can gain a clearer understanding of the current financial news landscape and uncover the dominant narratives shaping the market.
 
 
 ```python
-%%capture
+from collections import Counter
+import re
 
-from sentence_transformers import SentenceTransformer
+def extract_keywords_from_title(title):
+    # Simple keyword extraction by splitting words and removing common stopwords
+    stopwords = set(['and', 'or', 'the', 'in', 'on', 'a', 'an', 'for', 'with', 'of', 'to', 'by'])
+    words = re.findall(r'\w+', title.lower())
+    keywords = [word for word in words if word not in stopwords and len(word) > 2]
+    return keywords
 
-# Example financial news titles
-titles = [
-    "The stock market is experiencing a significant downturn.",
-    "The stock market saw a sharp decline today.",
-    "Major losses hit the stock market.",
-    "Tech stocks rally as market rebounds from losses.",
-    "Technology shares surge following market recovery.",
-    "Recovery drives tech stocks to new highs.",
-    "Federal Reserve signals possible interest rate hike.",
-    "Fed hints at increasing interest rates soon.",
-    "Interest rate hike likely as suggested by the Federal Reserve.",
-    "Bitcoin reaches new all-time high amid market optimism.",
-    "Market optimism pushes Bitcoin to record high.",
-    "Bitcoin hits unprecedented levels with market cheer.",
-    "Oil prices surge due to supply chain disruptions.",
-    "Supply chain issues cause a spike in oil prices.",
-    "Oil prices increase sharply as supply chains falter."
-]
+def show_interesting_stats(df):
+    if df.empty:
+        print("# The DataFrame is empty.")
+        return
 
-# Load the SBERT model
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-
-# Compute embeddings
-embeddings = model.encode(titles)
-```
-
-`embeddings` are dense numerical vectors that capture the semantic meaning and contextual relationships of sentences. For instance, the embedding of a sentence like "The stock market is experiencing a significant downturn." might be represented as a high-dimensional vector such as `sentence1 -> [0.45, -0.40, 0.17, ...];` . Each embedding generated using **SBERT [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)** consists of 384 dimensions. These dimensions collectively encode various aspects of the sentence's meaning.
-
-But as humans, we don't naturally communicate in 384-dimensional numerical vectors. So, how do we verify that the embeddings truly capture the context and meaning of our sentences in a way that's useful? There are two straightforward ways to do this:
-
-1. **Comparing Embedding Similarity:** Similar sentences should have embeddings that are close to each other. We can measure this similarity to see if the embeddings reflect the semantic relationships between sentences.
-
-
-```python
-import numpy as np
-import plotly.graph_objects as go
-from sentence_transformers import SentenceTransformer
-from sklearn.metrics.pairwise import cosine_similarity
-
-# Calculate cosine similarity
-similarity_matrix = cosine_similarity(embeddings)
-
-# Mask the lower triangle and the diagonal of the similarity matrix
-mask = np.triu(np.ones_like(similarity_matrix, dtype=bool), k=1)
-masked_sim_matrix = np.ma.masked_array(similarity_matrix, mask)
-
-# Create the heatmap
-fig = go.Figure(data=go.Heatmap(
-    z=masked_sim_matrix,
-    x=titles,
-    y=titles,
-    colorscale='Greens',
-    zmin=0,
-    zmax=1,
-    colorbar=dict(title='Cosine Similarity'),
-    hoverongaps=False,
-))
-
-# Update layout
-fig.update_layout(
-    title='Cosine Similarity of Financial News Titles',
-    xaxis=dict(tickangle=90, tickfont=dict(size=8)),
-    yaxis=dict(tickfont=dict(size=8)),
-    height=1000,
-    margin=dict(l=100, r=100, t=100, b=100),
-    template=theme
-)
-
-fig.show()
-```
-
-
-
-2. **Visualization:** As we demonstrated earlier, visualizing these embeddings can provide insights. Similar embeddings should cluster together in charts, showing that they capture the underlying context effectively. This way, we can visually validate that the embeddings represent the nuances of the text.
-
-
-```python
-import numpy as np
-import plotly.graph_objects as go
-from sklearn.decomposition import PCA
-
-# Reduce dimensions (vector length from 384 to 3) to 3D for visualization using PCA
-pca = PCA(n_components=3)  # PCA used for simplicity
-reduced_embeddings = pca.fit_transform(embeddings)
-
-# Create 3D scatter plot
-fig = go.Figure()
-
-for i, embedding in enumerate(reduced_embeddings):
-    fig.add_trace(go.Scatter3d(
-        x=[embedding[0]],
-        y=[embedding[1]],
-        z=[embedding[2]],
-        mode='markers',  # Ensure markers are used
-        marker=dict(size=5),  # Adjust the size as needed
-        name=titles[i]  # Add the title to the legend
-    ))
-
-# Update layout
-fig.update_layout(
-    scene=dict(
-        xaxis_title='PCA Component 1',
-        yaxis_title='PCA Component 2',
-        zaxis_title='PCA Component 3'
-    ),
-    title='3D Visualization of Financial News Titles Using SBERT',
-    legend_title_text='Titles',
-    margin=dict(l=0, r=0, b=0, t=40),
-    template=theme
-)
-
-fig.show()
-```
-
-
-
-#### A few insights based on the results:
-
-- **Clustering of Similar Titles:** The plot effectively shows how SBERT captures and differentiates between semantically similar financial news titles. Titles discussing similar events, such as the stock market downturn, are closely clustered together. For instance, "The stock market is experiencing a significant downturn.", "The stock market saw a sharp decline today.", and "Major losses hit the stock market." are grouped closely. This clustering indicates that SBERT has effectively captured their semantic similarity, even though the phrasings differ. Similarly, titles about tech stock rallies, interest rate hikes, Bitcoin's market performance, and oil prices form distinct clusters. For example, titles like "Tech stocks rally as market rebounds from losses.", "Technology shares surge following market recovery.", and "Recovery drives tech stocks to new highs." are grouped together, reflecting their similar contexts. This clustering pattern demonstrates SBERT's ability to understand and encode the semantic content of these news titles accurately.
-
-- **Distinct Clusters:** Titles about different events are spread apart. Titles discussing interest rate hikes by the Federal Reserve, such as "Federal Reserve signals possible interest rate hike.", "Fed hints at increasing interest rates soon.", and "Interest rate hike likely as suggested by the Federal Reserve.", form a distinct cluster. This separation from those discussing the stock market or Bitcoin indicates clear differentiation in context and subject matter. Similarly, titles about oil prices, like "Oil prices surge due to supply chain disruptions.", "Supply chain issues cause a spike in oil prices.", and "Oil prices increase sharply as supply chains falter.", also form a distinct and clear cluster. These groupings highlight how SBERT can differentiate between various financial events, even when they are reported differently.
-
-#### Considerations in Interpretation
-- Cosine similarity captures overall semantic closeness but might miss finer nuances such as tone or specific entity relationships.
-- High similarity scores suggest semantic similarity, but small differences in scores might not always be meaningful. It's crucial to set appropriate thresholds for what constitutes "similar" in your context.
-
----
-
----
-
-### Optimized Embedding Processor with GPU Support for Sentence Transformers
-Here you have a Python class, `EmbeddingsProcessor`, that manages the efficient computation and caching of sentence embeddings using the SentenceTransformer library. It dynamically selects the optimal device (NVIDIA CUDA, Apple MPS, AMD ROCm, or CPU) for processing, normalizes embeddings, and caches them to reduce redundant computations. This facilitates scalable and performance-optimized embedding generation. 
-
-
-```python
-import os
-import pickle
-import torch
-from sentence_transformers import SentenceTransformer
-from typing import List, Dict
-
-class EmbeddingsProcessor:
-    def __init__(self, model: SentenceTransformer, cache_path: str, device: str = None):
-        """
-        Initializes the EmbeddingsProcessor with a SentenceTransformer model,
-        a path for caching embeddings, and an optional device specification.
-
-        Parameters:
-        model (SentenceTransformer): The SentenceTransformer model used for generating embeddings.
-        cache_path (str): Path to store the cache of embeddings.
-        device (str): Preferred device for computation ('cuda', 'mps', 'cpu', or None).
-                      If None, the best available device will be used.
-        """
-        self.model = model
-        self.cache_path = cache_path
-        self.device = self._get_device(device)  # Determine the best available device
-        self.embeddings_cache = self._load_embeddings_cache()  # Load cached embeddings if available
-
-    def _get_device(self, preferred_device: str = None) -> torch.device:
-        """
-        Determines the best available device for computation.
-
-        Parameters:
-        preferred_device (str): The preferred device (optional).
-
-        Returns:
-        torch.device: The best available device.
-        """
-        if preferred_device:
-            # Attempt to use the preferred device
-            device = torch.device(preferred_device)
-            if device.type == 'cuda' and torch.cuda.is_available():
-                return device
-            elif device.type == 'mps' and torch.backends.mps.is_available():
-                return device
-            elif device.type == 'rocm' and torch.cuda.is_available():
-                return device  # ROCm is detected as CUDA
-        # Default to the best available device
-        if torch.cuda.is_available():
-            return torch.device('cuda')
-        elif torch.backends.mps.is_available():
-            return torch.device('mps')
-        else:
-            return torch.device('cpu')
-
-    def _load_embeddings_cache(self) -> Dict[str, torch.Tensor]:
-        """
-        Loads embeddings cache from the specified file path.
-
-        Returns:
-        dict: The loaded embeddings cache or an empty dictionary if the cache does not exist.
-        """
-        if os.path.exists(self.cache_path):
-            # Load the cache if the file exists
-            with open(self.cache_path, 'rb') as f:
-                return pickle.load(f)
-        return {}  # Return an empty dictionary if the cache file does not exist
-
-    def _save_embeddings_cache(self):
-        """
-        Saves the current embeddings cache to the specified file path.
-        """
-        with open(self.cache_path, 'wb') as f:
-            pickle.dump(self.embeddings_cache, f)
-
-    def _compute_embeddings(self, corpus: List[str]) -> torch.Tensor:
-        """
-        Computes and caches embeddings for a given corpus of texts.
-
-        Parameters:
-        corpus (list): A list of texts to compute embeddings for.
-
-        Returns:
-        torch.Tensor: A tensor of normalized embeddings.
-        """
-        embeddings = []
-        new_embeddings = {}
-        for text in corpus:
-            if text not in self.embeddings_cache:
-                # Compute embedding if it's not already cached
-                embedding = self.model.encode(text, convert_to_tensor=True)
-                new_embeddings[text] = embedding.cpu()  # Store the embedding on CPU to save GPU memory
-            else:
-                new_embeddings[text] = self.embeddings_cache[text]
-            embeddings.append(new_embeddings[text])
-
-        if new_embeddings:
-            # Update the cache if new embeddings were computed
-            self.embeddings_cache.update(new_embeddings)
-            self._save_embeddings_cache()
-
-        # Stack embeddings into a single tensor
-        embeddings_tensor = torch.stack(embeddings)
-        embeddings_tensor = embeddings_tensor.to(self.device)  # Move the tensor to the desired device
-        # Normalize the embeddings by their norms
-        norms = embeddings_tensor.norm(p=2, dim=1, keepdim=True)
-        normalized_embeddings = embeddings_tensor.div(norms)
-        return normalized_embeddings
-
-    def process_batch(self, corpus: List[str]) -> torch.Tensor:
-        """
-        Processes a batch of texts and returns their embeddings.
-
-        Parameters:
-        corpus (list): A list of texts to process.
-
-        Returns:
-        torch.Tensor: A tensor of embeddings for the given texts.
-        """
-        embeddings = self._compute_embeddings(corpus)
-        return embeddings
-
-# Example usage of the EmbeddingsProcessor
-# Load a SentenceTransformer model
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-# Path to store the embeddings cache
-cache_path = 'embeddings_cache.pkl'
-# Initialize the processor
-processor = EmbeddingsProcessor(model, cache_path)
-
-# Example corpus of texts
-corpus = titles # Using the financial news titles from the previous example
-# Process the corpus to get embeddings
-embeddings = processor.process_batch(corpus)
-print(corpus[0], embeddings[0][0:10]) # you can see here that for the first title, SBERT has generated a 384-dimensional embedding (only 10 dimensions are shown here to avoid a long output)
-```
-
-    The stock market is experiencing a significant downturn. tensor([ 0.0315, -0.0482,  0.0491,  0.0356, -0.0831,  0.0144, -0.0546,  0.0748,
-             0.0136, -0.0191], device='mps:0')
+    # Number of articles
+    num_articles = len(df)
     
+    # Number of unique sources
+    num_sources = df['source'].nunique()
+    
+    # Time range covered by the articles
+    min_date = df['pubDate'].min()
+    max_date = df['pubDate'].max()
+    
+    # Most common sources
+    sources_counts = df['source'].value_counts().head(5)
+    
+    # Extract keywords from titles
+    all_keywords = df['title'].apply(lambda title: extract_keywords_from_title(title))
+    keyword_counts = Counter([keyword for keywords in all_keywords for keyword in keywords]).most_common(5)
+    
+    # Most common topics
+    topic_counts = df['topic'].value_counts().head(5)
+    
+    print(f"### Interesting Stats")
+    print(f"- **Number of articles:** {num_articles}")
+    print(f"- **Number of unique sources:** {num_sources}")
+    print(f"- **Time range covered:** {min_date} to {max_date}")
+    
+    print("\n#### Most Common Keywords in Titles")
+    for keyword, count in keyword_counts:
+        print(f"- **{keyword}:** {count}")
+    
+    print("\n#### Most Common Sources")
+    for source, count in sources_counts.items():
+        print(f"- **{source}:** {count}")
+    
+    print("\n#### Most Common Topics")
+    for topic, count in topic_counts.items():
+        print(f"- **{topic}:** {count}")
+
+# Example usage
+show_interesting_stats(df_AllNews)
+```
+
+    ### Interesting Stats
+    - **Number of articles:** 1512
+    - **Number of unique sources:** 368
+    - **Time range covered:** 2024-07-10 19:42:15+00:00 to 2024-07-11 19:34:30+00:00
+    
+    #### Most Common Keywords in Titles
+    - **inflation:** 244
+    - **news:** 194
+    - **climate:** 186
+    - **earnings:** 172
+    - **change:** 162
+    
+    #### Most Common Sources
+    - **Yahoo Finance:** 136
+    - **Bloomberg:** 58
+    - **Reuters:** 58
+    - **MarketWatch:** 42
+    - **ABC News:** 36
+    
+    #### Most Common Topics
+    - **Economic Indicators:** 222
+    - **Environmental and Social Issues:** 194
+    - **Technology Trends:** 194
+    - **Market Dynamics:** 182
+    - **Corporate Actions:** 182
+    
+
+**That's all. The really cool stuff comes from employing machine learning models to the dataset - take a look at our next articles for an understanding of how to do it.**
