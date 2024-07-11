@@ -86,9 +86,9 @@ plotlyFig.update_layout(
 
 plotlyFig.show()
 ```    
-    
+
 <iframe
-    src="https://github.com/DavideGCosta/sciqnt-pages/tree/main/static/notebooks/docs/strategies/01-financial-news/3d-visualization-news-using-manual-embeddings.html"
+    src="https://davidegcosta.github.io/sciqnt-pages/notebooks/docs/strategies/01-financial-news/3d-visualization-news-using-manual-embeddings.html"
     style={{ width: '100%', height: '700px', border: 'none' }}
     title="IFrame Content"
     allow="autoplay; encrypted-media"
@@ -252,7 +252,7 @@ plotlyFig.show()
 ```
     
 <iframe
-    src="https://github.com/DavideGCosta/sciqnt-pages/tree/main/static/notebooks/docs/strategies/01-financial-news/cosine-similarity-of-financial-news-titles.html"
+    src="https://davidegcosta.github.io/sciqnt-pages/notebooks/docs/strategies/01-financial-news/cosine-similarity-of-financial-news-titles.html"
     style={{ width: '100%', height: '700px', border: 'none' }}
     title="IFrame Content"
     allow="autoplay; encrypted-media"
@@ -306,7 +306,7 @@ plotlyFig.show()
 ```
 
 <iframe
-    src="https://github.com/DavideGCosta/sciqnt-pages/tree/main/static/notebooks/docs/strategies/01-financial-news/3d-visualization-of-news-using-sbert.html"
+    src="https://davidegcosta.github.io/sciqnt-pages/notebooks/docs/strategies/01-financial-news/3d-visualization-of-news-using-sbert.html"
     style={{ width: '100%', height: '700px', border: 'none' }}
     title="IFrame Content"
     allow="autoplay; encrypted-media"
